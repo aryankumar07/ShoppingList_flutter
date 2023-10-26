@@ -29,7 +29,9 @@ String? _error;
 
  void _loadItems() async {
 final url = Uri.https('slist-2b760-default-rtdb.firebaseio.com','shopping-list.json');
-    final response  = await http.get(url);
+
+try{
+        final response  = await http.get(url);
     if(response.statusCode>=400){
        _error="failed to fetch data";
     }
@@ -54,6 +56,13 @@ final url = Uri.https('slist-2b760-default-rtdb.firebaseio.com','shopping-list.j
       groceryItems = loadItems; 
       _isloading = false;
     });
+}catch(err){
+  setState(() {
+    _error="Something went wrong!";
+  });
+}
+
+
  }
 
 
